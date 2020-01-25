@@ -80,19 +80,20 @@ public class PollService {
         }
 
         /* Формируем постраничный запрос на Опросы */
-        Page<Poll> page;
-        PageRequest request = PageRequest.of(pageNum, pageSize, Sort.by(Sort.Direction.ASC, "name"));
+        PageRequest request;
         if (PollsSortType.NAME.equals(sortType)) {
-            page = repository.findAll(spec, request);
+            request = PageRequest.of(pageNum, pageSize, Sort.by(Sort.Direction.ASC, "name"));
         } else {
-            page = repository.findAll(spec, request);
+            request = PageRequest.of(pageNum, pageSize, Sort.by(Sort.Direction.ASC, "date"));
         }
+
+        Page<Poll> page = repository.findAll(spec, request);
 
         /* Формируем запрос на отсортированные вопросы и подготовливаем ответ */
         List<PollDTO> content = page.stream()
                 .map(poll -> new PollDTO(poll, questionService.findAllByPollId(poll.getId())))
                 .collect(Collectors.toList());
-        return new PageDTO<PollDTO>(page.getTotalPages(), page.getTotalElements(), page.isLast(), page.isFirst(), pageSize, pageNum, content);
+        return new PageDTO<>(page.getTotalPages(), page.getTotalElements(), page.isLast(), page.isFirst(), pageSize, pageNum, content);
     }
 
     /**

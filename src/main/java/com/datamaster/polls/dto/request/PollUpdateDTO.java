@@ -1,17 +1,17 @@
 package com.datamaster.polls.dto.request;
 
 import com.datamaster.polls.dto.request.meta.BasePollRequestDTO;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
 @Getter
+@Setter
 @NoArgsConstructor
 @ApiModel(description = "Данные для обновления опроса")
 public class PollUpdateDTO extends BasePollRequestDTO {

@@ -25,7 +25,7 @@ public class Poll extends BaseEntity {
     /**
      * Наименование опроса
      */
-    @Column(name = "name")
+    @Column(name = "poll_name")
     private String name;
 
     /**
